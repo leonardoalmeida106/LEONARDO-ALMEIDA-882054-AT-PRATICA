@@ -1,11 +1,16 @@
 {
   "usuarios": [
     {
-      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
-      "login": "user",
-      "senha": "Roblox12",
-      "nome": "Leonardo",
-      "email": "robloxleo1234@email"
+      "id": "0698",
+      "nome": "LEONARDO ALMEIDA MOURA DE SOUZA",
+      "usuario": "Leolok0",
+      "senha": "Roblox1212"
+    },
+    {
+      "id": "0e40",
+      "nome": "LEONARDO ALMEIDA MOURA DE SOUZA",
+      "usuario": "Leo",
+      "senha": "1234"
     }
   ],
   "movies": [
@@ -87,9 +92,9 @@
       "director": "Jared Hess",
       "studio": "Warner Bros.",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/mine1.webp",
+        "assets/imagens/mine2.jpg",
+        "assets/imagens/mine3.webp"
       ],
       "id": "202e"
     },
@@ -101,9 +106,9 @@
       "director": "Christopher Nolan",
       "studio": "Universal Pictures",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/Oppenheimer1.webp",
+        "assets/imagens/Oppenheimer2.jpg",
+        "assets/imagens/Oppenheimer3.webp"
       ],
       "id": "d9d3"
     },
@@ -115,9 +120,9 @@
       "director": "Todd Phillips",
       "studio": "Warner Bros.",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/Coringa1.jpg",
+        "assets/imagens/Coringa2.jpg",
+        "assets/imagens/Coringa3.jpg"
       ],
       "id": "cb18"
     },
@@ -129,9 +134,9 @@
       "director": "Ruben Fleischer",
       "studio": "Sony Pictures",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/Uncharted1.jpg",
+        "assets/imagens/Uncharted2.jpg",
+        "assets/imagens/Uncharted3.jpg"
       ],
       "id": "47e7"
     },
@@ -143,9 +148,9 @@
       "director": "Gunn e Peter Safran",
       "studio": "DC Studios",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/Super1.jpg",
+        "assets/imagens/Super2.png",
+        "assets/imagens/Super3.avif"
       ],
       "id": "8a34"
     },
@@ -157,9 +162,9 @@
       "director": "John Carpenter",
       "studio": "Compass International Pictures",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/Ha1.avif",
+        "assets/imagens/ha2.jpg",
+        "assets/imagens/ha3.jpg"
       ],
       "id": "f034"
     },
@@ -171,9 +176,9 @@
       "director": "Peter Sohn",
       "studio": "Pixar Animation Studios",
       "carouselImages": [
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI",
-        "COLOQUEIMAGEMAQUI"
+        "assets/imagens/ele1.jpg",
+        "assets/imagens/ele2.webp",
+        "assets/imagens/ele3.jpg"
       ],
       "id": "1619"
     }

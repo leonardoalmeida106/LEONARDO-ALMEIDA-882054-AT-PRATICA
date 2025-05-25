@@ -11,10 +11,14 @@ async function carregarDados(endpoint) {
     }
 }
 
-// Função de pesquisa
+// Função de pesquisa - agora busca por título, diretor e estúdio
 document.getElementById('searchBtn').addEventListener('click', function () {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(searchTerm));
+    const filteredMovies = movies.filter(movie => 
+        movie.title.toLowerCase().includes(searchTerm) ||
+        movie.director.toLowerCase().includes(searchTerm) ||
+        movie.studio.toLowerCase().includes(searchTerm)
+    );
     renderMovies(filteredMovies);
 });
 
