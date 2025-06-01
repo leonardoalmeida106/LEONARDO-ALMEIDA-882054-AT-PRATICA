@@ -8,4 +8,7 @@ Teste Put
 ![image](https://github.com/user-attachments/assets/e8774d30-ba25-4c60-b766-5c5f9a99f4bf)
 Teste Delete
 ![image](https://github.com/user-attachments/assets/b8b1b94c-7f52-43c4-adf6-3d3a651a8280)
-
+Barra de Filmes por estúdio
+![alt text](image.png)
+Gráfico de Filmes por estúdio
+![alt text](image-1.png)
