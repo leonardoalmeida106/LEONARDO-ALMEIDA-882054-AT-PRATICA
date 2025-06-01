@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cineart Leo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script defer src="app.js"></script>
   <style>
     body {
@@ -100,10 +101,8 @@
 
       <form id="loginForm" class="d-flex align-items-center flex-wrap gap-2" role="search" style="gap: 1rem;">
         <div id="loginInputs" style="display: flex; flex-direction: column; min-width: 150px; max-width: 150px;">
-          <input class="form-control form-control-sm" type="text" id="usuarioLogin" placeholder="Usuário"
-            style="min-width: 150px; max-width: 150px;" />
-          <input class="form-control form-control-sm" type="password" id="senhaLogin" placeholder="Senha"
-            style="min-width: 100px; max-width: 150px;" />
+          <input class="form-control form-control-sm" type="text" id="usuarioLogin" placeholder="Usuário" />
+          <input class="form-control form-control-sm" type="password" id="senhaLogin" placeholder="Senha" />
           <small>
             <a href="registro.html" class="text-light text-decoration-none" style="font-size: 0.75rem;">Não tem uma conta?</a>
           </small>
@@ -152,6 +151,12 @@
     <div class="row" id="card-container"></div>
   </div>
 
+  <!-- GRÁFICO DE PIZZA -->
+  <div class="container my-5">
+    <h4 class="text-center mb-3">Distribuição de Filmes por Estúdio</h4>
+    <canvas id="studioChart" style="width:100px; height:100px"></canvas>
+  </div>
+
   <footer>
     <div class="container text-center">
       <h5>Sobre o Desenvolvedor</h5>
@@ -164,60 +169,41 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", async function () {
       const loginForm = document.getElementById("loginForm");
-      const loginInputs = document.getElementById("loginInputs");
       const usuarioInput = document.getElementById("usuarioLogin");
       const senhaInput = document.getElementById("senhaLogin");
 
-      // Verifica se tem usuário logado no localStorage
       const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
       if (usuarioLogado) {
-        // Se estiver logado, mostrar mensagem e botão logout
         loginForm.innerHTML = `
           <div class="text-white text-end">
             Bem-vindo, <strong>${usuarioLogado.nome || usuarioLogado.usuario}</strong>!
             <button class="btn btn-light btn-sm ms-2" id="logoutBtn">Sair</button>
           </div>
         `;
-
         document.getElementById("logoutBtn").addEventListener("click", () => {
           localStorage.removeItem("usuarioLogado");
           location.reload();
         });
       } else {
-        // Se não estiver logado, ativar o evento submit do formulário de login
         loginForm.addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const login = usuarioInput.value.trim();
           const senha = senhaInput.value;
-
           if (!login || !senha) {
             alert("Preencha todos os campos.");
             return;
           }
-
           try {
-            // Busca o usuário pelo campo "usuario" no servidor JSON
             const resposta = await fetch(`http://localhost:3000/usuarios?usuario=${encodeURIComponent(login)}`);
             const dados = await resposta.json();
-
-            if (dados.length === 0) {
+            if (dados.length === 0 || dados[0].senha !== senha) {
               alert("Usuário ou senha incorretos.");
               return;
             }
-
-            const usuario = dados[0];
-
-            if (usuario.senha !== senha) {
-              alert("Usuário ou senha incorretos.");
-              return;
-            }
-
-            // Salva no localStorage o usuário logado e recarrega a página
-            localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
+            localStorage.setItem("usuarioLogado", JSON.stringify(dados[0]));
             alert("Login realizado com sucesso!");
             location.reload();
           } catch (erro) {
@@ -226,14 +212,109 @@
           }
         });
       }
-    });
 
-    // Função exemplo para o clique no banner
-    function showMovieDetailsFromBanner(title) {
-      alert("Mostrar detalhes do filme: " + title);
-      // Aqui você pode implementar a navegação para a página de detalhes do filme
-    }
+      // Carregar filmes
+      const movies = await fetch("http://localhost:3000/movies").then(res => res.json());
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieTitle = urlParams.get('movie');
+
+      if (movieTitle) {
+        const movie = movies.find(m => m.title === movieTitle);
+        if (movie) showMovieDetails(movie);
+      } else {
+        renderMovies(movies);
+      }
+
+      // Gráfico por estúdio
+      const studios = {};
+      movies.forEach(movie => {
+        studios[movie.studio] = (studios[movie.studio] || 0) + 1;
+      });
+
+      const ctx = document.getElementById('studioChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(studios),
+          datasets: [{
+            label: 'Filmes por Estúdio',
+            data: Object.values(studios),
+            backgroundColor: ['#5a9bcf', '#f94144', '#f3722c', '#f8961e', '#90be6d', '#43aa8b', '#577590']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: { color: 'white' }
+            }
+          }
+        }
+      });
+
+      // Botão de busca
+      document.getElementById('searchBtn').addEventListener('click', () => {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const filtered = movies.filter(m => m.title.toLowerCase().includes(search) || m.director.toLowerCase().includes(search) || m.studio.toLowerCase().includes(search));
+        renderMovies(filtered);
+      });
+
+      function renderMovies(list) {
+        const container = document.getElementById("card-container");
+        container.innerHTML = "";
+        list.forEach(movie => {
+          const col = document.createElement("div");
+          col.className = "col-md-3 col-sm-6 mb-4 d-flex";
+          const card = document.createElement("div");
+          card.className = "card text-white h-100 w-100";
+          card.style.backgroundColor = "#0d1b2a";
+          card.style.cursor = "pointer";
+          card.innerHTML = `
+            <img src="${movie.image}" class="card-img-top" alt="${movie.title}">
+            <div class="card-body"><h5 class="card-title">${movie.title}</h5></div>
+          `;
+          card.addEventListener("click", () => showMovieDetailsFromBanner(movie.title));
+          col.appendChild(card);
+          container.appendChild(col);
+        });
+      }
+
+      function showMovieDetails(movie) {
+        const container = document.getElementById('card-container');
+        let carouselItems = movie.carouselImages.map((img, index) => `
+          <div class="carousel-item ${index === 0 ? 'active' : ''}">
+            <img src="${img}" class="d-block w-100" alt="${movie.title}">
+          </div>
+        `).join('');
+
+        container.innerHTML = `
+          <div class="text-center">
+            <h2>${movie.title}</h2>
+            <img src="${movie.image}" class="img-fluid mb-3" style="max-width: 300px;">
+            <p>${movie.description}</p>
+            <p><strong>Lançamento:</strong> ${movie.releaseDate}</p>
+            <p><strong>Diretor:</strong> ${movie.director}</p>
+            <p><strong>Estúdio:</strong> ${movie.studio}</p>
+            <div id="carouselImages" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div class="carousel-inner">${carouselItems}</div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="window.location.href='index.html'">Voltar</button>
+          </div>
+        `;
+      }
+
+      window.showMovieDetailsFromBanner = function (title) {
+        window.location.href = `index.html?movie=${encodeURIComponent(title)}`;
+      };
+    });
   </script>
+
 </body>
 
 </html>
