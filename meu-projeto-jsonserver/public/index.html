@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,27 +13,17 @@
       color: white;
       padding-top: 70px;
     }
-
     .zoom-animation {
       animation: zoomInOut 6s infinite ease-in-out;
     }
-
     @keyframes zoomInOut {
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
-
     footer {
       background-color: #0d1b2a;
       padding: 2rem 0;
     }
-
     .profile-img {
       width: 100px;
       height: 100px;
@@ -42,7 +31,6 @@
       border-radius: 50%;
       border: 2px solid white;
     }
-
     .search-bar {
       margin: 20px auto;
       display: flex;
@@ -50,7 +38,6 @@
       align-items: center;
       width: 100%;
     }
-
     .search-bar input {
       width: 80%;
       max-width: 900px;
@@ -58,7 +45,6 @@
       border-radius: 5px;
       border: 1px solid #ccc;
     }
-
     .search-bar button {
       background-color: #5a9bcf;
       color: white;
@@ -68,69 +54,90 @@
       margin-left: 10px;
       cursor: pointer;
     }
-
     .search-bar button:hover {
       background-color: #4a8bb5;
     }
-
     .card-img-top {
       width: 100%;
       height: 350px;
       object-fit: cover;
     }
-
     .form-control-sm {
       min-width: 150px;
     }
+    /* Ícone coração no card */
+    .favorite-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.8rem;
+      color: #bbb;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      user-select: none;
+      z-index: 10;
+    }
+    .favorite-icon.favorited {
+      color: #e25555;
+      text-shadow: 0 0 5px #e25555;
+    }
+    .card {
+      position: relative;
+    }
+    /* Botão Adicionar Filme */
+    #btnAddMovie {
+      margin: 20px auto;
+      display: block;
+      max-width: 200px;
+    }
+    /* Seção favoritos */
+    #favorite-section {
+      margin: 2rem 0;
+    }
   </style>
 </head>
-
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-4 fixed-top">
     <a class="navbar-brand fw-bold" href="index.html">CINEART</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse justify-content-between" id="navbarContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="#">Lançamentos</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Sobre nós</a></li>
       </ul>
-
-      <form id="loginForm" class="d-flex align-items-center flex-wrap gap-2" role="search" style="gap: 1rem;">
-        <div id="loginInputs" style="display: flex; flex-direction: column; min-width: 150px; max-width: 150px;">
+      <form id="loginForm" class="d-flex align-items-center flex-wrap gap-2" role="search" style="gap:1rem;">
+        <div id="loginInputs" style="display:flex;flex-direction:column;min-width:150px;max-width:150px;">
           <input class="form-control form-control-sm" type="text" id="usuarioLogin" placeholder="Usuário" />
           <input class="form-control form-control-sm" type="password" id="senhaLogin" placeholder="Senha" />
-          <small>
-            <a href="registro.html" class="text-light text-decoration-none" style="font-size: 0.75rem;">Não tem uma conta?</a>
-          </small>
+          <small><a href="registro.html" class="text-light text-decoration-none" style="font-size:0.75rem;">Não tem uma conta?</a></small>
         </div>
         <button class="btn btn-light btn-sm" type="submit">Ok</button>
       </form>
     </div>
   </nav>
 
-  <div style="height: 10px;"></div>
+  <div style="height:10px;"></div>
 
   <div class="container my-4">
+    <!-- Banner Carousel -->
     <div id="carouselBanner" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
       <div class="carousel-inner shadow rounded-3">
-        <div class="carousel-item active zoom-animation" style="cursor: pointer;" onclick="showMovieDetailsFromBanner('Minecraft: The Movie')">
-          <img src="assets/imagens/Um-filme-Minecraft.jpg" class="d-block w-100" alt="Minecraft Movie">
+        <div class="carousel-item active zoom-animation" onclick="showMovieDetailsFromBanner('Minecraft:TheMovie')">
+          <img src="assets/imagens/Um-filme-Minecraft.jpg" class="d-block w-100" alt="Minecraft Movie" />
         </div>
-        <div class="carousel-item zoom-animation" style="cursor: pointer;" onclick="showMovieDetailsFromBanner('Superman')">
-          <img src="assets/imagens/super-homem.jpg" class="d-block w-100" alt="Superman">
+        <div class="carousel-item zoom-animation" onclick="showMovieDetailsFromBanner('Superman')">
+          <img src="assets/imagens/super-homem.jpg" class="d-block w-100" alt="Superman" />
         </div>
-        <div class="carousel-item zoom-animation" style="cursor: pointer;" onclick="showMovieDetailsFromBanner('Uncharted')">
-          <img src="assets/imagens/uncharted.webp" class="d-block w-100" alt="Uncharted">
+        <div class="carousel-item zoom-animation" onclick="showMovieDetailsFromBanner('Uncharted')">
+          <img src="assets/imagens/uncharted.webp" class="d-block w-100" alt="Uncharted" />
         </div>
-        <div class="carousel-item zoom-animation" style="cursor: pointer;" onclick="showMovieDetailsFromBanner('Halloween')">
-          <img src="assets/imagens/classic-horror-movie-halloween-poster-rn7nng71o4p3gcaz.jpg" class="d-block w-100" alt="Halloween">
+        <div class="carousel-item zoom-animation" onclick="showMovieDetailsFromBanner('Halloween')">
+          <img src="assets/imagens/classic-horror-movie-halloween-poster-rn7nng71o4p3gcaz.jpg" class="d-block w-100" alt="Halloween" />
         </div>
-        <div class="carousel-item zoom-animation" style="cursor: pointer;" onclick="showMovieDetailsFromBanner('Elementos')">
-          <img src="assets/imagens/scale.webp" class="d-block w-100" alt="Elementos">
+        <div class="carousel-item zoom-animation" onclick="showMovieDetailsFromBanner('Elementos')">
+          <img src="assets/imagens/scale.webp" class="d-block w-100" alt="Elementos" />
         </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
@@ -142,25 +149,39 @@
     </div>
   </div>
 
+  <!-- Barra de pesquisa -->
   <div class="search-bar">
     <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar filmes..." />
     <button id="searchBtn" class="btn btn-outline-light ms-2">Buscar</button>
   </div>
 
   <div class="container mb-5">
+    <!-- Seção de filmes favoritos -->
+    <div id="favorite-section" style="display:none;">
+      <h3>Filmes Favoritos</h3>
+      <div class="row" id="favorites-container"></div>
+    </div>
+  </div>
+
+  <div class="container mb-5">
+    <!-- Seção filmes normais -->
     <div class="row" id="card-container"></div>
   </div>
 
-  <!-- GRÁFICO DE PIZZA -->
+  <!-- Botão Adicionar Filme (para admin) -->
+  <div class="container text-center" id="adminAddMovieContainer" style="display:none;">
+    <button id="btnAddMovie" class="btn btn-success">Adicionar filme</button>
+  </div>
+
   <div class="container my-5">
     <h4 class="text-center mb-3">Distribuição de Filmes por Estúdio</h4>
-    <canvas id="studioChart" style="width:100px; height:100px"></canvas>
+    <canvas id="studioChart"></canvas>
   </div>
 
   <footer>
     <div class="container text-center">
       <h5>Sobre o Desenvolvedor</h5>
-      <img src="assets/imagens/elde.jpg" alt="Foto de perfil" class="profile-img my-3">
+      <img src="assets/imagens/elde.jpg" alt="Foto de perfil" class="profile-img my-3" />
       <p>Olá! Sou Leonardo Almeida Moura de Souza, estudante de Graduação em Ciências da Computação na PUC Minas...</p>
       <p>Este site foi desenvolvido como parte dos meus estudos de desenvolvimento web. Ele serve para obter informações dos seus filmes favoritos!</p>
     </div>
@@ -173,20 +194,188 @@
       const loginForm = document.getElementById("loginForm");
       const usuarioInput = document.getElementById("usuarioLogin");
       const senhaInput = document.getElementById("senhaLogin");
+      const favoritesContainer = document.getElementById("favorites-container");
+      const favoriteSection = document.getElementById("favorite-section");
+      let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-      const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+      // Função para carregar favoritos do localStorage (por usuário)
+      function carregarFavoritos() {
+        if (!usuarioLogado) return [];
+        const favs = localStorage.getItem(`favoritos_${usuarioLogado.id}`);
+        return favs ? JSON.parse(favs) : [];
+      }
 
+      // Função para salvar favoritos no localStorage (por usuário)
+      function salvarFavoritos(favoritos) {
+        if (!usuarioLogado) return;
+        localStorage.setItem(`favoritos_${usuarioLogado.id}`, JSON.stringify(favoritos));
+      }
+
+      // Estado dos favoritos carregados
+      let favoritos = carregarFavoritos();
+
+      // Mostrar botão "Adicionar filme" só se usuário for Admin
+      function mostrarBotaoAdmin() {
+        const adminContainer = document.getElementById("adminAddMovieContainer");
+        if (usuarioLogado && usuarioLogado.usuario === "Admin") {
+          adminContainer.style.display = "block";
+          document.getElementById("btnAddMovie").addEventListener("click", () => {
+            window.location.href = "adicionar-filme.html";
+          });
+        } else {
+          adminContainer.style.display = "none";
+        }
+      }
+
+      // Renderizar filmes (separado em favoritos e normais)
+      function renderMovies(list) {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+
+        // Filmes que são favoritos, filtrar lista para exibir só os que não são favoritos
+        const favoritosSet = new Set(favoritos);
+        const normais = list.filter(m => !favoritosSet.has(m.id));
+        const favoritosList = list.filter(m => favoritosSet.has(m.id));
+
+        // Renderizar favoritos na seção de favoritos
+        if (usuarioLogado && favoritosList.length > 0) {
+          favoriteSection.style.display = "block";
+          favoritesContainer.innerHTML = "";
+          favoritosList.forEach(movie => {
+            const col = document.createElement("div");
+            col.className = "col-md-3 col-sm-6 mb-4 d-flex";
+            const card = criarCardFilme(movie, true);
+            col.appendChild(card);
+            favoritesContainer.appendChild(col);
+          });
+        } else {
+          favoriteSection.style.display = "none";
+          favoritesContainer.innerHTML = "";
+        }
+
+        // Renderizar filmes normais
+        normais.forEach(movie => {
+          const col = document.createElement("div");
+          col.className = "col-md-3 col-sm-6 mb-4 d-flex";
+          const card = criarCardFilme(movie, false);
+          col.appendChild(card);
+          cardContainer.appendChild(col);
+        });
+      }
+
+      // Criar o card de um filme (favoritado ou não)
+      function criarCardFilme(movie, isFavorited) {
+        const card = document.createElement("div");
+        card.className = "card text-white h-100 w-100";
+        card.style.backgroundColor = "#0d1b2a";
+        card.style.cursor = "pointer";
+        card.style.position = "relative";
+
+        card.innerHTML = `
+          <span class="favorite-icon ${isFavorited ? "favorited" : ""}" title="Favoritar">❤</span>
+          <img src="${movie.image}" class="card-img-top" alt="${movie.title}" />
+          <div class="card-body">
+            <h5 class="card-title">${movie.title}</h5>
+          </div>`;
+
+        // Evento para favoritar/desfavoritar, impedir clique para abrir detalhes
+        card.querySelector(".favorite-icon").addEventListener("click", e => {
+          e.stopPropagation();
+          toggleFavorito(movie.id, e.target);
+        });
+
+        // Clique no card abre detalhes
+        card.addEventListener("click", () => showMovieDetailsFromBanner(movie.title));
+
+        return card;
+      }
+
+      // Alterna estado do favorito e atualiza localStorage + estilo
+      function toggleFavorito(movieId, iconElement) {
+        if (!usuarioLogado) {
+          alert("Você precisa estar logado para favoritar filmes.");
+          return;
+        }
+        const index = favoritos.indexOf(movieId);
+        if (index >= 0) {
+          favoritos.splice(index, 1);
+          iconElement.classList.remove("favorited");
+        } else {
+          favoritos.push(movieId);
+          iconElement.classList.add("favorited");
+        }
+        salvarFavoritos(favoritos);
+        // Re-renderizar para atualizar as duas seções
+        renderMovies(movies);
+      }
+
+      // Mostrar detalhes do filme na mesma página
+      function showMovieDetails(movie) {
+        const container = document.getElementById("card-container");
+        let carouselItems = movie.carouselImages
+          .map(
+            (img, index) =>
+              `<div class="carousel-item ${index === 0 ? "active" : ""}">
+                 <img src="${img}" class="d-block w-100" alt="${movie.title}">
+               </div>`
+          )
+          .join("");
+
+        container.innerHTML = `
+          <div class="text-center">
+            <h2>${movie.title}</h2>
+            <img src="${movie.image}" class="img-fluid mb-3" style="max-width:300px;">
+            <p>${movie.description}</p>
+            <p><strong>Lançamento:</strong> ${movie.releaseDate}</p>
+            <p><strong>Diretor:</strong> ${movie.director}</p>
+            <p><strong>Estúdio:</strong> ${movie.studio}</p>
+            <div id="carouselImages" class="carousel slide carousel-fade" data-bs-ride="carousel">
+              <div class="carousel-inner">${carouselItems}</div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+              </button>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="window.location.href='index.html'">Voltar</button>
+          </div>`;
+      }
+
+      // Navegar para detalhes do filme via URL
+      window.showMovieDetailsFromBanner = function (title) {
+        window.location.href = `index.html?movie=${encodeURIComponent(title)}`;
+      };
+
+      // Configurações da tela após login
       if (usuarioLogado) {
         loginForm.innerHTML = `
           <div class="text-white text-end">
             Bem-vindo, <strong>${usuarioLogado.nome || usuarioLogado.usuario}</strong>!
             <button class="btn btn-light btn-sm ms-2" id="logoutBtn">Sair</button>
-          </div>
-        `;
+            <button class="btn btn-danger btn-sm ms-2" id="deleteAccountBtn">Excluir Conta</button>
+          </div>`;
+
         document.getElementById("logoutBtn").addEventListener("click", () => {
           localStorage.removeItem("usuarioLogado");
           location.reload();
         });
+
+        document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+          const confirmar = confirm("Tem certeza que deseja excluir sua conta? Essa ação não poderá ser desfeita.");
+          if (confirmar) {
+            try {
+              await fetch(`http://localhost:3000/usuarios/${usuarioLogado.id}`, { method: "DELETE" });
+              alert("Conta excluída com sucesso.");
+              localStorage.removeItem("usuarioLogado");
+              location.reload();
+            } catch (error) {
+              alert("Erro ao excluir conta.");
+            }
+          }
+        });
+
+        mostrarBotaoAdmin();
       } else {
         loginForm.addEventListener("submit", async (e) => {
           e.preventDefault();
@@ -213,11 +402,12 @@
         });
       }
 
-      // Carregar filmes
+      // Carregar dados dos filmes
       const movies = await fetch("http://localhost:3000/movies").then(res => res.json());
+
+      // Verificar se existe parâmetro de filme na URL (detalhes)
       const urlParams = new URLSearchParams(window.location.search);
       const movieTitle = urlParams.get('movie');
-
       if (movieTitle) {
         const movie = movies.find(m => m.title === movieTitle);
         if (movie) showMovieDetails(movie);
@@ -225,96 +415,47 @@
         renderMovies(movies);
       }
 
-      // Gráfico por estúdio
+      // Criar gráfico de pizza de estúdios
       const studios = {};
       movies.forEach(movie => {
         studios[movie.studio] = (studios[movie.studio] || 0) + 1;
       });
-
-      const ctx = document.getElementById('studioChart').getContext('2d');
-      new Chart(ctx, {
-        type: 'pie',
+      const ctx = document.getElementById("studioChart").getContext("2d");
+      const chart = new Chart(ctx, {
+        type: "pie",
         data: {
           labels: Object.keys(studios),
           datasets: [{
-            label: 'Filmes por Estúdio',
+            label: "Filmes por Estúdio",
             data: Object.values(studios),
-            backgroundColor: ['#5a9bcf', '#f94144', '#f3722c', '#f8961e', '#90be6d', '#43aa8b', '#577590']
+            backgroundColor: [
+              "#d8a47f", "#5a9bcf", "#f3a261", "#1b263b", "#f28f3b", "#6a0572",
+              "#ffba08", "#3a86ff", "#8338ec", "#ff006e", "#fb5607", "#ffb703"
+            ]
           }]
         },
         options: {
-          responsive: true,
           plugins: {
-            legend: {
-              labels: { color: 'white' }
-            }
+            legend: { labels: { color: 'white' } }
           }
         }
       });
 
-      // Botão de busca
-      document.getElementById('searchBtn').addEventListener('click', () => {
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = movies.filter(m => m.title.toLowerCase().includes(search) || m.director.toLowerCase().includes(search) || m.studio.toLowerCase().includes(search));
-        renderMovies(filtered);
+      // Buscar filmes ao clicar no botão Buscar
+      document.getElementById("searchBtn").addEventListener("click", () => {
+        const query = document.getElementById("searchInput").value.toLowerCase();
+        const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(query));
+        renderMovies(filteredMovies);
       });
 
-      function renderMovies(list) {
-        const container = document.getElementById("card-container");
-        container.innerHTML = "";
-        list.forEach(movie => {
-          const col = document.createElement("div");
-          col.className = "col-md-3 col-sm-6 mb-4 d-flex";
-          const card = document.createElement("div");
-          card.className = "card text-white h-100 w-100";
-          card.style.backgroundColor = "#0d1b2a";
-          card.style.cursor = "pointer";
-          card.innerHTML = `
-            <img src="${movie.image}" class="card-img-top" alt="${movie.title}">
-            <div class="card-body"><h5 class="card-title">${movie.title}</h5></div>
-          `;
-          card.addEventListener("click", () => showMovieDetailsFromBanner(movie.title));
-          col.appendChild(card);
-          container.appendChild(col);
-        });
-      }
-
-      function showMovieDetails(movie) {
-        const container = document.getElementById('card-container');
-        let carouselItems = movie.carouselImages.map((img, index) => `
-          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="${img}" class="d-block w-100" alt="${movie.title}">
-          </div>
-        `).join('');
-
-        container.innerHTML = `
-          <div class="text-center">
-            <h2>${movie.title}</h2>
-            <img src="${movie.image}" class="img-fluid mb-3" style="max-width: 300px;">
-            <p>${movie.description}</p>
-            <p><strong>Lançamento:</strong> ${movie.releaseDate}</p>
-            <p><strong>Diretor:</strong> ${movie.director}</p>
-            <p><strong>Estúdio:</strong> ${movie.studio}</p>
-            <div id="carouselImages" class="carousel slide carousel-fade" data-bs-ride="carousel">
-              <div class="carousel-inner">${carouselItems}</div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselImages" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-              </button>
-            </div>
-            <button class="btn btn-primary mt-3" onclick="window.location.href='index.html'">Voltar</button>
-          </div>
-        `;
-      }
-
-      window.showMovieDetailsFromBanner = function (title) {
-        window.location.href = `index.html?movie=${encodeURIComponent(title)}`;
-      };
+      // Buscar filmes ao pressionar Enter no input de busca
+      document.getElementById("searchInput").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          document.getElementById("searchBtn").click();
+        }
+      });
     });
   </script>
-
 </body>
-
 </html>

@@ -1,19 +1,25 @@
 {
   "usuarios": [
     {
-      "id": "0698",
+      "id": "31bd",
       "nome": "LEONARDO ALMEIDA MOURA DE SOUZA",
-      "usuario": "Leolok0",
-      "senha": "Roblox1212"
+      "usuario": "LEONARDO",
+      "senha": "1234",
+      "favoritos": [
+        "1824",
+        "2392",
+        "202e"
+      ]
     },
     {
-      "id": "0e40",
-      "nome": "LEONARDO ALMEIDA MOURA DE SOUZA",
-      "usuario": "Leo",
-      "senha": "1234"
+      "id": "admin01",
+      "nome": "Administrador",
+      "usuario": "Admin",
+      "senha": "1234",
+      "especial": true
     },
     {
-      "id": "9bd9",
+      "id": "19ec",
       "nome": "LEONARDO ALMEIDA MOURA DE SOUZA",
       "usuario": "Leolok0",
       "senha": "1234"
